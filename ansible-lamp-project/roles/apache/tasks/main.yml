@@ -1,0 +1,19 @@
+- name: Install Apache
+  apt:
+    name: apache2
+    state: present
+    update_cache: yes
+
+- name: Copy custom index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify: restart apache
+
+- name: Change Apache port
+  lineinfile:
+    path: /etc/apache2/ports.conf
+    regexp: '^Listen'
+    line: "Listen {{ apache_port }}"
+    backup: yes
+  notify: restart apache

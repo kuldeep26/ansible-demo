@@ -1,0 +1,18 @@
+- name: Install MySQL
+  apt:
+    name: mysql-server
+    state: present
+    update_cache: yes
+
+- name: Set MySQL root password
+  debconf:
+    name: 'mysql-server'
+    question: 'mysql-server/root_password'
+    value: "{{ mysql_root_password }}"
+    vtype: 'password'
+
+- name: Ensure MySQL is running
+  service:
+    name: mysql
+    state: started
+    enabled: true

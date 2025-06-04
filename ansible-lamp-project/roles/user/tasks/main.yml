@@ -1,0 +1,5 @@
+- name: Create a new user
+  user:
+    name: "{{ new_user }}"
+    shell: /bin/bash
+    state: present

@@ -1,0 +1,8 @@
+- name: Deploy LAMP Stack
+  hosts: web
+  become: true
+  roles:
+    - user
+    - apache
+    - mysql
+    - php
