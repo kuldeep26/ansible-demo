@@ -1,0 +1,10 @@
+users:
+  - name: devuser
+    groups: ['developers']
+    shell: /bin/bash
+    home: /home/devuser
+
+  - name: qauser
+    groups: ['qa']
+    shell: /bin/bash
+    home: /home/qauser

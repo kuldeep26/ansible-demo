@@ -1,0 +1,24 @@
+---
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Create required groups
+  group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ all_groups | unique }}"
+
+- name: Create users and assign to groups
+  user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups | join(',') }}"
+    shell: "{{ item.shell }}"
+    home: "{{ item.home }}"
+    state: present
+    create_home: yes
+  loop: "{{ users }}"
+
+- name: Print user creation success
+  debug:
+    msg: "User {{ item.name }} created on {{ ansible_distribution }}"
+  loop: "{{ users }}"
