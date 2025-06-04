@@ -1,4 +1,5 @@
-- name: Create a new user
+---
+- name: Create a web user
   user:
     name: "{{ new_user }}"
     shell: /bin/bash

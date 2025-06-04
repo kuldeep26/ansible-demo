@@ -1,18 +1,18 @@
-- name: Install MySQL
-  apt:
-    name: mysql-server
+---
+- name: Install MariaDB server
+  yum:
+    name: mariadb-server
     state: present
-    update_cache: yes
 
-- name: Set MySQL root password
-  debconf:
-    name: 'mysql-server'
-    question: 'mysql-server/root_password'
-    value: "{{ mysql_root_password }}"
-    vtype: 'password'
-
-- name: Ensure MySQL is running
+- name: Start and enable MariaDB
   service:
-    name: mysql
+    name: mariadb
     state: started
-    enabled: true
+    enabled: yes
+
+- name: Set root password (Amazon Linux only if MySQL 5.x)
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    host_all: true
+  when: ansible_facts['distribution'] == "Amazon"

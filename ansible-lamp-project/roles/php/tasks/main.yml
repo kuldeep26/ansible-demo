@@ -1,8 +1,10 @@
+---
 - name: Install PHP and modules
-  apt:
-    name:
-      - php
-      - libapache2-mod-php
-      - php-mysql
+  yum:
+    name: "{{ php_packages }}"
     state: present
-    update_cache: yes
+
+- name: Restart Apache after PHP install
+  service:
+    name: httpd
+    state: restarted

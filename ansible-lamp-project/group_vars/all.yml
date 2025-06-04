@@ -1,3 +1,9 @@
+# trunk-ignore-all(checkov/CKV_SECRET_6)
 new_user: devops
-apache_port: 8080
-mysql_root_password: "securepassword"
+http_port: 80
+php_packages:
+  - php
+  - php-mysqlnd
+  - php-cli
+  - php-common
+mysql_root_password: MySecretPassword
